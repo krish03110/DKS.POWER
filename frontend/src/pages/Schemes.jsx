@@ -60,7 +60,7 @@ const Schemes = () => {
           <h1 className="page-title">Government Solar Subsidies</h1>
           <p className="page-subtitle">
             Indian Government schemes make solar power affordable. 
-            Apply through DK's Power and save up to 60% on installation!
+            Apply through DKS Power and save up to 60% on installation!
           </p>
         </div>
 
@@ -105,7 +105,7 @@ const Schemes = () => {
                     Apply Online →
                   </a>
                   <Link to="/apply" className="get-help-btn">
-                    Get Help from DK's Power
+                    Get Help from DKS Power
                   </Link>
                 </div>
               </div>

@@ -10,7 +10,7 @@ const Footer = () => {
             {/* Company Info */}
             <div className="footer-section">
               <div className="footer-logo">
-                <h3>🌞 DK's Power</h3>
+                <h3>🌞 DKS Power</h3>
                 <p className="footer-tagline">Power Your Life With Clean Solar Energy</p>
               </div>
               <div className="social-links">
@@ -70,7 +70,7 @@ const Footer = () => {
       <div className="footer-bottom">
         <div className="container">
           <div className="bottom-content">
-            <p>&copy; 2025 DK's Power. All rights reserved. | Serving Madhya Pradesh</p>
+            <p>&copy; 2025 DKS Power. All rights reserved. | Serving Madhya Pradesh</p>
             <div className="legal-links">
               <Link to="/privacy">Privacy Policy</Link>
               <span>|</span>

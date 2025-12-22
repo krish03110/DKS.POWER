@@ -62,9 +62,14 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <div className="container">
-        <div className="contact-header">
-          <h1 className="page-title">Get In Touch With Us</h1>
-          <p className="page-subtitle">
+        <div className="contact-header" style={{ textAlign: 'center', paddingBottom: '2rem' }}>
+          <h1 className="page-title" style={{ color: '#1E7F4F', fontSize: '2.8rem' }}>
+            Get In Touch With Us
+          </h1>
+          <p
+            className="page-subtitle"
+            style={{ color: '#475569', fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto' }}
+          >
             Have questions about solar installation, pricing, or our services? 
             Our team is here to help.
           </p>
@@ -73,14 +78,16 @@ const Contact = () => {
         <div className="contact-content">
           {/* Contact Info */}
           <div className="contact-info-card">
-            <h3 className="info-title">Contact Information</h3>
+            <h3 className="info-title" style={{ color: '#1E7F4F' }}>
+              Contact Information
+            </h3>
             <div className="info-grid">
               <div className="info-item">
                 <div className="info-icon">📧</div>
                 <div>
                   <h4>Email</h4>
                   <a href={`mailto:${SITE_CONFIG.email}`} className="info-link">
-                    dks.power.ingmail.com
+                    {SITE_CONFIG.email}
                   </a>
                 </div>
               </div>
@@ -111,7 +118,9 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="contact-form-card">
-            <h3 className="form-title">Send us a Message</h3>
+            <h3 className="form-title" style={{ color: '#1E7F4F' }}>
+              Send us a Message
+            </h3>
             <form onSubmit={handleSubmit} className="contact-form">
               <div className="form-row">
                 <div className="form-group">

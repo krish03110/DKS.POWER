@@ -20,7 +20,8 @@ const Navbar = () => {
     { to: '/schemes', label: 'Subsidies' },
     { to: '/apply', label: 'Apply' },
     { to: '/about', label: 'About' },
-    { to: '/contact', label: 'Contact' }
+    { to: '/contact', label: 'Contact' },
+    { to: '/projects', label: 'Project' }
   ];
 
   return (
@@ -28,7 +29,7 @@ const Navbar = () => {
       <div className="container">
         <div className="nav-brand">
           <Link to="/" className="logo">
-            🌞 DK's Power
+            🌞 DKS Power
           </Link>
           <button 
             className="mobile-menu-btn"

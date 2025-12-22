@@ -6,7 +6,7 @@ const About = () => {
       <div className="container">
         {/* Hero Section */}
         <div className="about-hero">
-          <h1 className="page-title">About DK's Power</h1>
+          <h1 className="page-title">About DKS Power</h1>
           <p className="hero-subtitle">
             Powering Madhya Pradesh with Clean Solar Energy Solutions
           </p>
@@ -18,7 +18,7 @@ const About = () => {
             <div className="story-text">
               <h2 className="section-title">Our Mission</h2>
               <p className="story-para">
-                DK's Power is committed to delivering high-efficiency solar systems 
+                DKS Power is committed to delivering high-efficiency solar systems 
                 engineered for performance and long-term value. From small homes to 
                 large commercial spaces, we provide reliable solar solutions tailored 
                 to each customer's needs.

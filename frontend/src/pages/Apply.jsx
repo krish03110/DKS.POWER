@@ -58,7 +58,7 @@ const Apply = () => {
               Thank you! Our team will contact you within 24 hours to discuss your solar solution.
             </p>
             <div className="contact-info">
-              <p><strong>DK's Power</strong></p>
+              <p><strong>DKS Power</strong></p>
               <p>{SITE_CONFIG.phone[0]} | {SITE_CONFIG.email}</p>
             </div>
             <button 
@@ -135,6 +135,7 @@ const Apply = () => {
                   >
                     <option value="residential">Residential Solar</option>
                     <option value="commercial">Commercial Solar</option>
+                    <option value="solarpump">Solar Pump</option>
                   </select>
                 </div>
               </div>

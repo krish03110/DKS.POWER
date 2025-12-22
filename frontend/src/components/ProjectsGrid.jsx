@@ -90,7 +90,7 @@ const ProjectsGrid = ({ projects = [], loading = false }) => {
       ))}
       
       <div className="view-all-cta">
-        <Link to="/services" className="cta-button">
+        <Link to="/projects" className="cta-button">
           View All Projects
         </Link>
       </div>

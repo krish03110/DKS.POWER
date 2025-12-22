@@ -24,8 +24,8 @@ const Home = () => {
       minWidth: 200.0,
       scale: 1.0,
       scaleMobile: 1.0,
-      color1: 0x16711680,
-      color2: 0x53759,
+      color1: 0x1E7F4F, // Primary Green
+      color2: 0xFFC107, // Highlight Yellow
       birdSize: 1.0,
       wingSpan: 30.0,
       speedLimit: 5.0,
@@ -33,7 +33,7 @@ const Home = () => {
       cohesion: 20.0,
       quantity: 5,
       backgroundAlpha: 1.0,
-      backgroundColor: 0x4d9601,
+      backgroundColor: 0x1E7F4F, // Primary Green
       colorMode: "varianceGradient",
     });
 
@@ -51,7 +51,7 @@ const Home = () => {
         const { data } = await getProjects();
         setProjects(data.slice(0, 4));
       } catch (error) {
-        console.error("Failed to fetch projects:", error);
+        console.warn("API not reachable, using default project data.");
       } finally {
         setLoading(false);
       }

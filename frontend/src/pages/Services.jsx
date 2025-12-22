@@ -105,7 +105,7 @@ const Services = () => {
         <section className="why-choose-section">
           <div className="content-wrapper">
             <div className="why-text">
-              <h2 className="section-title">Why DK's Power?</h2>
+              <h2 className="section-title">Why DKS Power?</h2>
               <ul className="why-list">
                 <li>MNRE approved vendor</li>
                 <li>100+ successful installations</li>

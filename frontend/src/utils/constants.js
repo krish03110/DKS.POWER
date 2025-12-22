@@ -1,9 +1,9 @@
 export const SITE_CONFIG = {
   apiBase: import.meta.env.VITE_API_BASE_URL,
   company: import.meta.env.VITE_COMPANY_NAME || "DKS.Power",
-  address: import.meta.env.VITE_COMPANY_ADDRESS || "Bhopal, Madhya Pradesh",
+  address: import.meta.env.VITE_COMPANY_ADDRESS || "10 9 NIRMAL COMPLEX NEAR ROSHAN HOSPITAL RAISEN ROAD BHOPAL (MP) - 462923",
   phone: [import.meta.env.VITE_COMPANY_PHONE || "+91 9893636226"],
-  email: import.meta.env.VITE_COMPANY_EMAIL || "dkspower@gmail..com",
+  email: import.meta.env.VITE_COMPANY_EMAIL || "dksmarketing2016@gmail.com",
 };
 
 export const SCHEMES = [
@@ -14,7 +14,7 @@ export const SCHEMES = [
     subsidy: "₹78,000 (3kW)",
     desc: "Get rooftop solar for your home with central subsidy and lower monthly electricity bills.",
     icon: "🏠",
-    color: "#10b981",
+    color: "#1E7F4F",
   },
   {
     id: 2,
@@ -23,7 +23,7 @@ export const SCHEMES = [
     subsidy: "60% Subsidy + 30% Loan",
     desc: "Install solar pumps for agriculture with low upfront cost and protection from diesel prices.",
     icon: "🌾",
-    color: "#f59e0b",
+    color: "#FFC107",
   },
   {
     id: 3,
@@ -32,6 +32,6 @@ export const SCHEMES = [
     subsidy: "40% up to 3kW",
     desc: "Central subsidy for grid‑connected rooftop solar systems with net metering.",
     icon: "🏢",
-    color: "#3b82f6",
+    color: "#1E7F4F",
   },
 ];
