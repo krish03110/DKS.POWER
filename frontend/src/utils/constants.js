@@ -1,5 +1,6 @@
 export const SITE_CONFIG = {
-  apiBase: import.meta.env.VITE_API_BASE_URL,
+  // Use explicit env var when set, otherwise use '/api' so Vite dev proxy works
+  apiBase: import.meta.env.VITE_API_BASE_URL || '/api',
   company: import.meta.env.VITE_COMPANY_NAME || "DKS.Power",
   address: import.meta.env.VITE_COMPANY_ADDRESS || "10 9 NIRMAL COMPLEX NEAR ROSHAN HOSPITAL RAISEN ROAD BHOPAL (MP) - 462923",
   phone: [import.meta.env.VITE_COMPANY_PHONE || "+91 9893636226"],
