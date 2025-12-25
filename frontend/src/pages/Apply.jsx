@@ -29,7 +29,18 @@ const Apply = () => {
     setError('');
     
     try {
-      await submitApplication(formData);
+      // Map fullName to name for backend compatibility
+      const payload = {
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        message: formData.message,
+        // Optionally include other fields if backend is updated
+        schemeType: formData.schemeType,
+        powerRequirement: formData.powerRequirement,
+        address: formData.address
+      };
+      await submitApplication(payload);
       setSuccess(true);
       setFormData({
         fullName: '',

@@ -7,7 +7,9 @@ const errorHandler = require('./middleware/errorHandler');
 const authRoutes = require('./routes/auth');
 const projectRoutes = require('./routes/projects');
 const adminRoutes = require('./routes/admin');
-// const formRoutes = require('./routes/forms'); // Uncomment after creating the file
+
+const applicationRoutes = require('./routes/applications');
+const contactRoutes = require('./routes/contact');
 
 const app = express();
 
@@ -26,9 +28,9 @@ app.use('/api/auth', authRoutes);
 app.use('/api/projects', projectRoutes);
 app.use('/api/admin', adminRoutes);
 
-// TODO: Create these routes to match frontend api.js
-// app.post('/api/contact', formRoutes.contactController);
-// app.post('/api/applications', formRoutes.applicationController);
+
+app.use('/api/applications', applicationRoutes);
+app.use('/api/contact', contactRoutes);
 
 // Health
 app.get('/api/health', (req, res) => {
