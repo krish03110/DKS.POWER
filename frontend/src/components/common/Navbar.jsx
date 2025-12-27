@@ -54,11 +54,6 @@ const Navbar = () => {
               </Link>
             </li>
           ))}
-          <li className="nav-cta">
-            <Link to="/apply" className="cta-button">
-              Apply Now
-            </Link>
-          </li>
         </ul>
       </div>
     </nav>

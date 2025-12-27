@@ -30,15 +30,6 @@ const ProjectsGrid = ({ projects = [], loading = false }) => {
       image: 'solar-pump-1.jpg',
       status: 'Commissioned 2025'
     },
-    {
-      id: 4,
-      title: 'Factory Ground Mount',
-      location: 'Dewas, MP',
-      capacity: '50kW',
-      type: 'Ground Mounted',
-      image: 'solar-ground-1.jpg',
-      status: 'Live & Generating'
-    }
   ];
 
   const displayProjects = projects.length > 0 ? projects.slice(0, 4) : defaultProjects;
