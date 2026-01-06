@@ -17,11 +17,12 @@ const Navbar = () => {
   const navLinks = [
     { to: '/', label: 'Home' },
     { to: '/services', label: 'Services' },
-    { to: '/schemes', label: 'Subsidies' },
+    { to: '/schemes', label: 'Schemes' },
     { to: '/apply', label: 'Apply' },
     { to: '/about', label: 'About' },
     { to: '/contact', label: 'Contact' },
-    { to: '/projects', label: 'Project' }
+    { to: '/projects', label: 'Project' },
+    { to: '/login', label: 'Login' }
   ];
 
   return (

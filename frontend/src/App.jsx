@@ -8,6 +8,13 @@ import About from './pages/About';
 import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Projects from './pages/Projects';
+import Login from './pages/Login';
+import Signup from './pages/Signup';
+import ForgotPassword from './pages/ForgotPassword';
+import AddProject from './pages/AddProject';
+import AdminDashboard from './pages/AdminDashboard';
+import './App.css';
+
 function App() {
   return (
     <Router>
@@ -22,6 +29,11 @@ function App() {
             <Route path="/contact" element={<Contact />} />
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/forgot-password" element={<ForgotPassword />} />
+            <Route path="/add-project" element={<AddProject />} />
+            <Route path="/admin" element={<AdminDashboard />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>

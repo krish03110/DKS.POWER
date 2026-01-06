@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 // You will need to add createProject to your ../utils/api file
 import { createProject } from '../utils/api'; 
+import './AddProject.css';
 
 const AddProject = () => {
   const navigate = useNavigate();

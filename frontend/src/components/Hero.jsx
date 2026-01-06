@@ -9,7 +9,7 @@
               Power Your Life With  
               <span className="highlight"> Clean Solar</span> Energy
             </h1>
-            <p className="hero-subtitle">
+            <p className="hero-subtitle" font-color="black">
               Solar Solutions That Power Your Growth. From small homes to large 
               commercial spaces, we deliver high-efficiency solar systems engineered 
               for performance and long-term value.
