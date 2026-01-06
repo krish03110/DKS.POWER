@@ -35,8 +35,9 @@ const Footer = () => {
               <ul className="footer-links">
                 <li><Link to="/">Home</Link></li>
                 <li><Link to="/services">Services</Link></li>
-                <li><Link to="/schemes">Subsidies</Link></li>
-                <li><Link to="/about">About</Link></li>
+                <li><Link to="/schemes">Schemes</Link></li>
+                <li><Link to="/contact">Send Message us</Link></li>
+                <li><Link to="/projects">Completed Project by us </Link></li>
               </ul>
             </div>
 
@@ -46,7 +47,9 @@ const Footer = () => {
               <ul className="footer-links">
                 <li><Link to="/services">Residential Solar</Link></li>
                 <li><Link to="/services">Commercial Solar</Link></li>
-                <li><Link to="/services">Maintenance</Link></li>
+                <li><Link to="/services">Solar Panel Maintenance</Link></li>
+                <li><Link to="/services">Site Assessment & Consultation</Link></li>
+                <li><Link to="/services">Subsidy & Documentation</Link></li>
               </ul>
             </div>
 

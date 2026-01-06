@@ -96,17 +96,13 @@ const Schemes = () => {
                 </div>
                 {getSubsidyTable(scheme.id)}
                 <div className="scheme-actions">
-                  <a 
-                    href={`https://${scheme.portal}`} 
-                    target="_blank" 
-                    rel="noopener noreferrer"
-                    className="apply-portal-btn"
-                  >
-                    Apply Online →
-                  </a>
                   <Link to="/apply" className="get-help-btn">
+                    Apply here
+                  </Link>
+                    <Link to="/contact" className="get-help-btn">
                     Get Help from DKS Power
                   </Link>
+                
                 </div>
               </div>
             </div>

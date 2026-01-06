@@ -57,7 +57,7 @@ const About = () => {
             </div>
             <div className="service-card">
               <div className="service-icon">🏢</div>
-              <h3>Commercial & Factory Solar Installation</h3>
+              <h3>Commercial & Factory Solar </h3>
               <p>Scalable solutions for businesses designed for maximum ROI and long-term reliability.</p>
             </div>
             <div className="service-card">

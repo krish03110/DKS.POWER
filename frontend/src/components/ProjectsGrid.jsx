@@ -1,45 +1,115 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useCallback, useRef } from "react";
 
-const ProjectsGrid = ({ projects = [], loading = false }) => {
+const ProjectsGrid = ({ projects = [], loading = false, onProjectSelect }) => {
   const [currentSlide, setCurrentSlide] = useState(0);
   const [autoSlide, setAutoSlide] = useState(true);
   const [projectImageIndex, setProjectImageIndex] = useState({});
+  const [isTransitioning, setIsTransitioning] = useState(false);
+  
+  const intervalRef = useRef(null);
+  const projectsRef = useRef(projects);
 
+  // Update projects ref when projects change
   useEffect(() => {
-    // initialize per-project image index
+    projectsRef.current = projects;
+  }, [projects]);
+
+  const goToSlide = useCallback((idx) => {
+    if (!projectsRef.current.length || isTransitioning) return;
+    
+    setIsTransitioning(true);
+    setCurrentSlide(idx % projectsRef.current.length);
+    
+    // Reset interval after manual navigation
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      startAutoSlide();
+    }
+  }, [isTransitioning]);
+
+  const handleProjectSelect = useCallback((project) => {
+    if (onProjectSelect) {
+      onProjectSelect(project);
+    }
+  }, [onProjectSelect]);
+
+  // Auto-slide logic - FIXED
+  const startAutoSlide = useCallback(() => {
+    if (!autoSlide || projectsRef.current.length === 0) return;
+    
+    intervalRef.current = setInterval(() => {
+      if (!isTransitioning && projectsRef.current.length > 0) {
+        setCurrentSlide((prev) => (prev + 1) % projectsRef.current.length);
+      }
+    }, 2500); // Faster speed: 2.5 seconds instead of 4
+  }, [autoSlide, isTransitioning]);
+
+  const stopAutoSlide = useCallback(() => {
+    if (intervalRef.current) {
+      clearInterval(intervalRef.current);
+      intervalRef.current = null;
+    }
+  }, []);
+
+  // Initialize project images and setup auto-slide
+  useEffect(() => {
+    // Initialize per-project image index
     const init = {};
     projects.forEach((p) => {
       const id = p._id || p.id || p.title;
       init[id] = projectImageIndex[id] || 0;
     });
     setProjectImageIndex((prev) => ({ ...init, ...prev }));
-    if (!autoSlide || projects.length === 0) return;
-    const t = setInterval(() => {
-      setCurrentSlide((s) => (projects.length ? (s + 1) % projects.length : 0));
-    }, 4000);
-    return () => clearInterval(t);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [autoSlide, projects]);
 
-  const goToSlide = (idx) => {
-    if (!projects.length) return;
-    setCurrentSlide(idx % projects.length);
+    // Stop previous interval
+    stopAutoSlide();
+    
+    // Start new interval
+    startAutoSlide();
+
+    return () => stopAutoSlide();
+  }, [projects, autoSlide, startAutoSlide, stopAutoSlide]);
+
+  const toggleAutoSlide = () => {
+    setAutoSlide((prev) => {
+      const newValue = !prev;
+      if (newValue) {
+        startAutoSlide();
+      } else {
+        stopAutoSlide();
+      }
+      return newValue;
+    });
   };
 
-  const toggleAutoSlide = () => setAutoSlide((v) => !v);
+  // Transition end handler
+  useEffect(() => {
+    if (isTransitioning) {
+      const timer = setTimeout(() => {
+        setIsTransitioning(false);
+      }, 400);
+      return () => clearTimeout(timer);
+    }
+  }, [isTransitioning]);
 
   const prevProjectImage = (project) => {
     const id = project._id || project.id || project.title;
     const imgs = (project.images || []).slice(0, 3);
     if (!imgs.length) return;
-    setProjectImageIndex((prev) => ({ ...prev, [id]: (prev[id] || 0) - 1 >= 0 ? prev[id] - 1 : imgs.length - 1 }));
+    setProjectImageIndex((prev) => ({ 
+      ...prev, 
+      [id]: (prev[id] || 0) - 1 >= 0 ? prev[id] - 1 : imgs.length - 1 
+    }));
   };
 
   const nextProjectImage = (project) => {
     const id = project._id || project.id || project.title;
     const imgs = (project.images || []).slice(0, 3);
     if (!imgs.length) return;
-    setProjectImageIndex((prev) => ({ ...prev, [id]: ((prev[id] || 0) + 1) % imgs.length }));
+    setProjectImageIndex((prev) => ({ 
+      ...prev, 
+      [id]: ((prev[id] || 0) + 1) % imgs.length 
+    }));
   };
 
   const setProjectImage = (project, idx) => {
@@ -57,63 +127,62 @@ const ProjectsGrid = ({ projects = [], loading = false }) => {
     );
   }
 
+  if (!projects.length) {
+    return <div className="projects-grid empty">No projects available</div>;
+  }
+
   return (
     <div className="projects-slideshow">
-      {projects.map((project, idx) => {
-        const id = project._id || project.id || project.title;
-        const imgs = (project.images || []).slice(0, 3);
-        const imgIndex = projectImageIndex[id] || 0;
-        return (
-          <div
-            key={id || idx}
-            className={`slideshow-slide ${idx === currentSlide ? "active" : ""}`}
-            style={{ display: idx === currentSlide ? "block" : "none" }}
-          >
-            <div className="project-hero">
-              {imgs.length ? (
-                <>
-                  <img src={imgs[imgIndex]} alt={project.title} loading="lazy" />
-                  <div className="image-controls">
-                    {imgs.length > 1 && (
-                      <>
-                        <button className="img-prev" onClick={() => prevProjectImage(project)}>‹</button>
-                        <button className="img-next" onClick={() => nextProjectImage(project)}>›</button>
-                      </>
-                    )}
-                    <div className="img-counter">{imgIndex + 1} / {imgs.length}</div>
-                  </div>
-                </>
-              ) : (
-                <div className="no-image">No image</div>
-              )}
+      <div className="slideshow-container" style={{ display: 'grid', gridTemplateAreas: '"slide"', overflow: 'hidden', position: 'relative' }}>
+        {projects.map((project, idx) => {
+          const id = project._id || project.id || project.title;
+          const imgs = (project.images || []).slice(0, 3);
+          const imgIndex = projectImageIndex[id] || 0;
+          
+          return (
+            <div
+              key={id || idx}
+              className={`slideshow-slide ${idx === currentSlide ? "active" : ""}`}
+              style={{ 
+                gridArea: 'slide',
+                width: '100%',
+                transform: `translateX(${(idx - currentSlide) * 100}%)`,
+                transition: isTransitioning ? 'transform 0.4s ease-in-out' : 'none'
+              }}
+            >
+              <div className="project-hero">
+                {imgs.length ? (
+                  <>
+                    <img 
+                      src={imgs[imgIndex]} 
+                      alt={project.title} 
+                      loading="lazy"
+                    />
+                
+                  </>
+                ) : (
+                  <div className="no-image">No image available</div>
+                )}
 
-              <div className="project-overlay">
-                <h3>{project.title}</h3>
-                <p>
-                  {typeof project.location === "string"
-                    ? project.location
-                    : project.location?.district || project.location?.state || ""} - {project.capacity} kW
-                </p>
-                <button className="view-details" onClick={() => goToSlide(idx)}>
-                  View Details
-                </button>
+                <div className="project-overlay">
+                  <h3>{project.title}</h3>
+                  <p>
+                    {typeof project.location === "string"
+                      ? project.location
+                      : project.location?.district || project.location?.state || ""} - {project.capacity} kW
+                  </p>
+                  <button 
+                    className="view-details" 
+                    onClick={() => handleProjectSelect(project)}
+                  >
+                    View Details
+                  </button>
+                </div>
               </div>
             </div>
-
-            <div className="slideshow-thumbs">
-              {imgs.map((img, imgIdx) => (
-                <img
-                  key={imgIdx}
-                  src={img}
-                  alt={`Thumb ${imgIdx + 1}`}
-                  onClick={() => setProjectImage(project, imgIdx)}
-                  className={imgIdx === imgIndex ? "active-thumb" : ""}
-                />
-              ))}
-            </div>
-          </div>
-        );
-      })}
+          );
+        })}
+      </div>
 
       <div className="slideshow-dots">
         {projects.map((_, idx) => (
@@ -131,12 +200,11 @@ const ProjectsGrid = ({ projects = [], loading = false }) => {
       >
         ‹
       </button>
-      <button className="slide-next" onClick={() => goToSlide((currentSlide + 1) % projects.length)}>
+      <button 
+        className="slide-next" 
+        onClick={() => goToSlide((currentSlide + 1) % projects.length)}
+      >
         ›
-      </button>
-
-      <button className="auto-toggle" onClick={toggleAutoSlide}>
-        {autoSlide ? "⏸️" : "▶️"}
       </button>
     </div>
   );
