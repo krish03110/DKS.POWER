@@ -27,10 +27,5 @@ export const getProjectById = (id) => api.get(`/projects/${id}`);
 export const updateProject = (id, data) => api.put(`/projects/${id}`, data);
 export const deleteProject = (id) => api.delete(`/projects/${id}`);
 
-// User/Auth APIs
-export const loginUser = (credentials) => api.post('/auth/login', credentials);
-export const registerUser = (data) => api.post('/auth/register', data);
-export const forgotPassword = (email) => api.post('/auth/forgot-password', { email });
-export const resetPassword = (data) => api.post('/auth/reset-password', data);
 
 export default api;

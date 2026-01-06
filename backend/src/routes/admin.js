@@ -3,12 +3,10 @@ const {
   getProjectStats,
   getAllProjectsAdmin,
 } = require('../controllers/projectController');
-const { protect, adminOnly } = require('../middleware/authMiddleware');
 
 const router = express.Router();
 
-router.use(protect, adminOnly);
-
+// Auth middleware removed; admin checks should be handled upstream if needed
 router.get('/projects/stats', getProjectStats);
 router.get('/projects', getAllProjectsAdmin);
 

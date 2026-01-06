@@ -11,7 +11,7 @@ const Services = () => {
     },
     {
       icon: '🏢',
-      title: 'Commercial Solar Systems',
+      title: 'Commercial & Factory Solar',
       desc: 'Large-scale solar for businesses, factories & offices. Payback in 3-5 years with high ROI. Custom financing available.',
       features: ['Ground/rooftop mount', 'Power plant design', 'Grid connectivity', 'Performance guarantee']
     },
@@ -21,12 +21,7 @@ const Services = () => {
       desc: 'Annual cleaning, performance checks & repairs. Keep your system at 98% efficiency. MNRE approved service.',
       features: ['Dust & dirt cleaning', 'Thermal imaging', 'Inverter servicing', 'AMC contracts']
     },
-    {
-      icon: '⚡',
-      title: 'Solar Pump Installation',
-      desc: 'PM KUSUM scheme pumps for farmers. 60% subsidy + 30% loan. Reliable water supply without diesel.',
-      features: ['3HP to 10HP pumps', 'Submersible/surface', 'Remote monitoring', 'Subsidy assistance']
-    },
+
     {
       icon: '📋',
       title: 'Subsidy & Documentation',
@@ -130,4 +125,4 @@ const Services = () => {
   );
 };
 
-export default Services;
+export default Services; 

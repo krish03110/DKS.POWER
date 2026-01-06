@@ -29,18 +29,28 @@ const Apply = () => {
     setError('');
     
     try {
+      // Validate form fields
+      if (!formData.fullName.trim() || !formData.email.trim() || !formData.phone.trim()) {
+        setError('Please fill in all required fields');
+        setLoading(false);
+        return;
+      }
+
       // Map fullName to name for backend compatibility
       const payload = {
         name: formData.fullName,
         email: formData.email,
         phone: formData.phone,
         message: formData.message,
-        // Optionally include other fields if backend is updated
         schemeType: formData.schemeType,
         powerRequirement: formData.powerRequirement,
         address: formData.address
       };
-      await submitApplication(payload);
+
+      console.log('Sending payload:', payload);
+      const response = await submitApplication(payload);
+      console.log('Response:', response);
+      
       setSuccess(true);
       setFormData({
         fullName: '',
@@ -52,8 +62,9 @@ const Apply = () => {
         message: ''
       });
     } catch (err) {
-      console.error(err);
-      setError('Failed to submit application. Please try again.');
+      console.error('Error details:', err);
+      const errorMessage = err.response?.data?.message || err.message || 'Failed to submit application. Please check your internet connection and try again.';
+      setError(errorMessage);
     } finally {
       setLoading(false);
     }
@@ -146,7 +157,7 @@ const Apply = () => {
                   >
                     <option value="residential">Residential Solar</option>
                     <option value="commercial">Commercial Solar</option>
-                    <option value="solarpump">Solar Pump</option>
+                    <option value="Factory Solar">Factory Solar </option>
                   </select>
                 </div>
               </div>

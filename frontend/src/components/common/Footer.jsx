@@ -1,4 +1,7 @@
 import { Link } from 'react-router-dom';
+import logo from '../../dks.png';
+import facebookLogo from '../../assets/facebook-logo.svg';
+import instagramLogo from '../../assets/instagram-logo.svg';
 import { SITE_CONFIG } from '../../utils/constants';
 
 const Footer = () => {
@@ -10,15 +13,15 @@ const Footer = () => {
             {/* Company Info */}
             <div className="footer-section">
               <div className="footer-logo">
-                <h3>🌞 DKS Power</h3>
+                <img src={logo} alt="DKS Marketing" className="logo-img" />
                 <p className="footer-tagline">Power Your Life With Clean Solar Energy</p>
               </div>
               <div className="social-links">
-                <a href="https://facebook.com" className="social-link" aria-label="Facebook">
-                  <span className="social-icon">📘</span>
+                <a href="https://www.facebook.com/dksmarketingbpl" className="social-link" aria-label="Facebook">
+                  <img src={facebookLogo} alt="Facebook" className="social-logo" />
                 </a>
-                <a href="https://instagram.com" className="social-link" aria-label="Instagram">
-                  <span className="social-icon">📷</span>
+                <a href="https://www.instagram.com/p/DSPBaNUCD69/" className="social-link" aria-label="Instagram">
+                  <img src={instagramLogo} alt="Instagram" className="social-logo" />
                 </a>
                 <a href={`mailto:${SITE_CONFIG.email}`} className="social-link" aria-label="Email">
                   <span className="social-icon">✉️</span>
@@ -82,5 +85,6 @@ const Footer = () => {
     </footer>
   );
 };
+
 
 export default Footer;

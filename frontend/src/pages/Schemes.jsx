@@ -12,7 +12,7 @@ const Schemes = () => {
       desc: 'Rooftop solar for homes - Get up to 300 units free electricity monthly',
       subsidy: '₹78,000 for 3kW system',
       target: 'Residential households',
-      portal: 'pmsuryaghar.gov.in'
+      
     },
     {
       id: 'kusum',
@@ -20,7 +20,7 @@ const Schemes = () => {
       desc: 'Solar pumps & power plants for farmers',
       subsidy: 'Up to 60% subsidy + 30% loan',
       target: 'Farmers & agriculture',
-      portal: 'mnre.gov.in'
+     
     },
     {
       id: 'rooftop',
@@ -28,7 +28,7 @@ const Schemes = () => {
       desc: 'Central subsidy for homes & institutions',
       subsidy: '40% up to 3kW, 20% for 3-10kW',
       target: 'Residential & Institutional',
-      portal: 'solarrooftop.gov.in'
+    
     }
   ];
 

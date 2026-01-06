@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { SITE_CONFIG } from '../utils/constants';
 import { submitContact } from '../utils/api';
 
+
 const Contact = () => {
   const [formData, setFormData] = useState({
     fullName: '',
@@ -27,12 +28,23 @@ const Contact = () => {
     setError('');
     
     try {
-      await submitContact(formData);
+      // Map frontend field names to backend expectations
+      const payload = {
+        name: formData.fullName,
+        email: formData.email,
+        phone: formData.phone,
+        // Include subject in message so it's stored
+        message: formData.subject ? `${formData.subject}\n\n${formData.message}` : formData.message,
+      };
+
+      const res = await submitContact(payload);
       setSuccess(true);
+      // Keep a copy of submitted name for success message then clear form
       setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
     } catch (err) {
-      console.error(err);
-      setError('Failed to send message. Please try again.');
+      console.error('Contact submit error:', err);
+      const msg = err.response?.data?.message || err.message || 'Failed to send message. Please try again.';
+      setError(msg);
     } finally {
       setLoading(false);
     }
@@ -62,13 +74,12 @@ const Contact = () => {
   return (
     <div className="contact-page">
       <div className="container">
-        <div className="contact-header" style={{ textAlign: 'center', paddingBottom: '2rem' }}>
-          <h1 className="page-title" style={{ color: '#1E7F4F', fontSize: '2.8rem' }}>
+        <div className="contact-header">
+          <h1 className="page-title">
             Get In Touch With Us
           </h1>
           <p
             className="page-subtitle"
-            style={{ color: '#475569', fontSize: '1.1rem', maxWidth: '700px', margin: '0 auto' }}
           >
             Have questions about solar installation, pricing, or our services? 
             Our team is here to help.
@@ -78,7 +89,7 @@ const Contact = () => {
         <div className="contact-content">
           {/* Contact Info */}
           <div className="contact-info-card">
-            <h3 className="info-title" style={{ color: '#1E7F4F' }}>
+            <h3 className="info-title">
               Contact Information
             </h3>
             <div className="info-grid">
@@ -118,7 +129,7 @@ const Contact = () => {
 
           {/* Contact Form */}
           <div className="contact-form-card">
-            <h3 className="form-title" style={{ color: '#1E7F4F' }}>
+            <h3 className="form-title">
               Send us a Message
             </h3>
             <form onSubmit={handleSubmit} className="contact-form">

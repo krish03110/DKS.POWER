@@ -1,22 +1,37 @@
 const Project = require('../models/Project');
+const path = require('path');
 
-// POST /api/projects  (admin)
+// POST /api/projects  (admin) - accepts multipart/form-data with optional `images` files
 const createProject = async (req, res, next) => {
   try {
-    const { title, description, status, imageUrl } = req.body;
+    const { title, description, status, district, state, capacity } = req.body;
 
     if (!title) {
       return res.status(400).json({ message: 'Title is required' });
     }
 
-    const project = await Project.create({
+    // Handle uploaded files (multer stores them on disk)
+    let images = [];
+    if (req.files && req.files.length) {
+      images = req.files.map((f) => {
+        // public URL path
+        return `${req.protocol}://${req.get('host')}/uploads/${f.filename}`;
+      });
+    }
+
+    const projectData = {
       title,
       description,
       status: status || 'pending',
-      imageUrl,
+      images,
+      imageUrl: images[0] || undefined,
+      location: district || state ? { district: district || '', state: state || '' } : undefined,
+      capacity: capacity || undefined,
       createdBy: req.user?._id,
       updatedBy: req.user?._id,
-    });
+    };
+
+    const project = await Project.create(projectData);
 
     res.status(201).json(project);
   } catch (err) {
@@ -88,6 +103,40 @@ const updateProjectImage = async (req, res, next) => {
   }
 };
 
+// GET /api/projects/:id  (public)
+const getProjectById = async (req, res, next) => {
+  try {
+    const project = await Project.findById(req.params.id);
+    if (!project) return res.status(404).json({ message: 'Project not found' });
+    res.json(project);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// PUT /api/projects/:id  (admin)
+const updateProject = async (req, res, next) => {
+  try {
+    const updates = { ...req.body, updatedBy: req.user?._id };
+    const project = await Project.findByIdAndUpdate(req.params.id, updates, { new: true });
+    if (!project) return res.status(404).json({ message: 'Project not found' });
+    res.json(project);
+  } catch (err) {
+    next(err);
+  }
+};
+
+// DELETE /api/projects/:id  (admin)
+const deleteProject = async (req, res, next) => {
+  try {
+    const project = await Project.findByIdAndDelete(req.params.id);
+    if (!project) return res.status(404).json({ message: 'Project not found' });
+    res.json({ message: 'Project deleted' });
+  } catch (err) {
+    next(err);
+  }
+};
+
 // GET /api/admin/projects/stats  (admin)
 const getProjectStats = async (req, res, next) => {
   try {
@@ -118,4 +167,8 @@ module.exports = {
   updateProjectImage,
   getProjectStats,
   getAllProjectsAdmin,
+  // New endpoints for frontend compatibility
+  getProjectById,
+  updateProject,
+  deleteProject,
 };
