@@ -17,7 +17,7 @@
               </p>
               <div className="hero-stats">
                 <div className="stat">
-                  <span className="stat-number">100+</span>
+                  <span className="stat-number">100kw</span>
                   <span className="stat-label">Projects Completed</span>
                 </div>
                 <div className="stat">
@@ -25,8 +25,8 @@
                   <span className="stat-label">Wide Service</span>
                 </div>
                 <div className="stat">
-                  <span className="stat-number">60%</span>
-                  <span className="stat-label">Govt Subsidy</span>
+                  <span className="stat-number">60</span>
+                  <span className="stat-label">Happy Customer</span>
                 </div>
               </div>
               <div className="hero-buttons">

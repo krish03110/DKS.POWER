@@ -11,7 +11,7 @@ const Services = () => {
     },
     {
       icon: '🏢',
-      title: 'Commercial & Factory Solar',
+      title: 'Commercial & Industrial Solar',
       desc: 'Large-scale solar for businesses, factories & offices. Payback in 3-5 years with high ROI. Custom financing available.',
       features: ['Ground/rooftop mount', 'Power plant design', 'Grid connectivity', 'Performance guarantee']
     },
@@ -91,7 +91,7 @@ const Services = () => {
             <div className="process-step">
               <div className="step-number">5</div>
               <h3>Handover & Support</h3>
-              <p>Commissioning + training + 25-year support</p>
+              <p>Commissioning + training + 5-year support</p>
             </div>
           </div>
         </section>

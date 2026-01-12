@@ -48,7 +48,7 @@ const ContactForm = ({ onSuccess, title = "Send Message" }) => {
           Thank you {formData.fullName}! We'll get back to you within 24 hours.
         </p>
         <div className="success-contact">
-          <p><strong>DKS.Power</strong></p>
+          <p><strong>DKSPower</strong></p>
           <p>{SITE_CONFIG.phone[0]}</p>
         </div>
         <button 

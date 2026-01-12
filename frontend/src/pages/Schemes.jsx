@@ -97,9 +97,6 @@ const Schemes = () => {
                 {getSubsidyTable(scheme.id)}
                 <div className="scheme-actions">
                   <Link to="/apply" className="get-help-btn">
-                    Apply here
-                  </Link>
-                    <Link to="/contact" className="get-help-btn">
                     Get Help from DKS Power
                   </Link>
                 

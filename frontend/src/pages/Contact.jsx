@@ -1,7 +1,5 @@
 import { useState } from 'react';
-import { SITE_CONFIG } from '../utils/constants';
-import { submitContact } from '../utils/api';
-
+import { SITE_CONFIG } from '../utils/constants'; // Adjust path as needed
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,9 +9,6 @@ const Contact = () => {
     subject: '',
     message: ''
   });
-  const [loading, setLoading] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [error, setError] = useState('');
 
   const handleChange = (e) => {
     setFormData({
@@ -22,193 +17,74 @@ const Contact = () => {
     });
   };
 
-  const handleSubmit = async (e) => {
+  const handleWhatsAppRedirect = (e) => {
     e.preventDefault();
-    setLoading(true);
-    setError('');
     
-    try {
-      // Map frontend field names to backend expectations
-      const payload = {
-        name: formData.fullName,
-        email: formData.email,
-        phone: formData.phone,
-        // Include subject in message so it's stored
-        message: formData.subject ? `${formData.subject}\n\n${formData.message}` : formData.message,
-      };
-
-      const res = await submitContact(payload);
-      setSuccess(true);
-      // Keep a copy of submitted name for success message then clear form
-      setFormData({ fullName: '', email: '', phone: '', subject: '', message: '' });
-    } catch (err) {
-      console.error('Contact submit error:', err);
-      const msg = err.response?.data?.message || err.message || 'Failed to send message. Please try again.';
-      setError(msg);
-    } finally {
-      setLoading(false);
-    }
+    const whatsappNumber = '9893302902';
+  
+    const userPhone = formData.phone.replace(/[^0-9]/g, ''); // Clean phone
+    const text = `New Contact Inquiry%0A%0AName: ${encodeURIComponent(formData.fullName)}%0APhone: ${userPhone}%0AEmail: ${encodeURIComponent(formData.email)}%0ASubject: ${encodeURIComponent(formData.subject)}%0AMessage: ${encodeURIComponent(formData.message)}`;
+    
+    // Redirect to WhatsApp Web/Mobile
+    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
+    window.open(whatsappUrl, '_blank');
   };
-
-  if (success) {
-    return (
-      <div className="contact-success">
-        <div className="container">
-          <div className="success-card">
-            <h1 className="success-title">Message Sent Successfully!</h1>
-            <p className="success-message">
-              Thank you {formData.fullName}! We'll get back to you within 24 hours.
-            </p>
-            <button 
-              onClick={() => setSuccess(false)}
-              className="new-message-btn"
-            >
-              Send Another Message
-            </button>
-          </div>
-        </div>
-      </div>
-    );
-  }
 
   return (
     <div className="contact-page">
       <div className="container">
-        <div className="contact-header">
-          <h1 className="page-title">
-            Get In Touch With Us
-          </h1>
-          <p
-            className="page-subtitle"
-          >
-            Have questions about solar installation, pricing, or our services? 
-            Our team is here to help.
-          </p>
-        </div>
-
-        <div className="contact-content">
-          {/* Contact Info */}
-          <div className="contact-info-card">
-            <h3 className="info-title">
-              Contact Information
-            </h3>
-            <div className="info-grid">
-              <div className="info-item">
-                <div className="info-icon">📧</div>
-                <div>
-                  <h4>Email</h4>
-                  <a href={`mailto:${SITE_CONFIG.email}`} className="info-link">
-                    {SITE_CONFIG.email}
-                  </a>
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="info-icon">📞</div>
-                <div>
-                  <h4>Phone</h4>
-                  <p className="info-text">{SITE_CONFIG.phone[0]}</p>
-                  <p className="info-text">{SITE_CONFIG.phone[1]}</p>
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="info-icon">📍</div>
-                <div>
-                  <h4>Address</h4>
-                  <p className="info-text">{SITE_CONFIG.address}</p>
-                </div>
-              </div>
-              <div className="info-item">
-                <div className="info-icon">🌞</div>
-                <div>
-                  <h4>Service Area</h4>
-                  <p className="info-text">Madhya Pradesh</p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Contact Form */}
-          <div className="contact-form-card">
-            <h3 className="form-title">
-              Send us a Message
-            </h3>
-            <form onSubmit={handleSubmit} className="contact-form">
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Full Name *</label>
-                  <input
-                    type="text"
-                    name="fullName"
-                    value={formData.fullName}
-                    onChange={handleChange}
-                    required
-                    className="form-input"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Phone *</label>
-                  <input
-                    type="tel"
-                    name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
-                    required
-                    className="form-input"
-                  />
-                </div>
-              </div>
-
-              <div className="form-row">
-                <div className="form-group">
-                  <label>Email *</label>
-                  <input
-                    type="email"
-                    name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
-                    className="form-input"
-                  />
-                </div>
-                <div className="form-group">
-                  <label>Subject *</label>
-                  <input
-                    type="text"
-                    name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
-                    className="form-input"
-                    placeholder="Solar inquiry, pricing, installation"
-                  />
-                </div>
-              </div>
-
-              <div className="form-group">
-                <label>Message *</label>
-                <textarea
-                  name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  rows="6"
-                  required
-                  className="form-textarea"
-                  placeholder="Tell us about your solar requirements..."
-                ></textarea>
-              </div>
-
-              {error && <div className="error-message">{error}</div>}
-
-              <button 
-                type="submit" 
-                disabled={loading}
-                className="submit-btn"
-              >
-                {loading ? 'Sending...' : 'Send Message'}
-              </button>
-            </form>
-          </div>
-        </div>
+        <form onSubmit={handleWhatsAppRedirect} className="contact-form">
+          <h2>Get in Touch</h2>
+          
+          <input
+            type="text"
+            name="fullName"
+            placeholder="Full Name"
+            value={formData.fullName}
+            onChange={handleChange}
+            required
+          />
+          
+          <input
+            type="email"
+            name="email"
+            placeholder="Email Address"
+            value={formData.email}
+            onChange={handleChange}
+            required
+          />
+          
+          <input
+            type="tel"
+            name="phone"
+            placeholder="Phone Number"
+            value={formData.phone}
+            onChange={handleChange}
+            required
+          />
+          
+          <input
+            type="text"
+            name="subject"
+            placeholder="Subject"
+            value={formData.subject}
+            onChange={handleChange}
+            required
+          />
+          
+          <textarea
+            name="message"
+            placeholder="Your Message"
+            rows="5"
+            value={formData.message}
+            onChange={handleChange}
+            required
+          />
+          
+          <button type="submit" className="whatsapp-btn">
+            Start WhatsApp Chat
+          </button>
+        </form>
       </div>
     </div>
   );

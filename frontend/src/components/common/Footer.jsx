@@ -1,7 +1,8 @@
 import { Link } from 'react-router-dom';
 import logo from '../../dks.png';
-import facebookLogo from '../../assets/facebook-logo.svg';
-import instagramLogo from '../../assets/instagram-logo.svg';
+import facebookLogo from '../../assets/facebooklogo.png';
+import instagramLogo from '../../assets/instagramlogo.png';
+import gmail from '../../assets/gmail.png';
 import { SITE_CONFIG } from '../../utils/constants';
 
 const Footer = () => {
@@ -24,7 +25,7 @@ const Footer = () => {
                   <img src={instagramLogo} alt="Instagram" className="social-logo" />
                 </a>
                 <a href={`mailto:${SITE_CONFIG.email}`} className="social-link" aria-label="Email">
-                  <span className="social-icon">✉️</span>
+                  <img src={gmail} alt="Gmail" className="social-logo" />
                 </a>
               </div>
             </div>
@@ -64,7 +65,7 @@ const Footer = () => {
                   📍 {SITE_CONFIG.address}
                 </p>
                 <p className="contact-item">
-                  ✉️ <a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a>
+                   <a href={`mailto:${SITE_CONFIG.email}`}>{SITE_CONFIG.email}</a>
                 </p>
               </div>
             </div>

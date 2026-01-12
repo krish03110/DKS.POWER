@@ -1,6 +1,9 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { useEffect, useState } from 'react';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
+import Loader from './components/common/Loader';
+import ScrollToTop from './components/common/ScrollToTop';
 import Home from './pages/Home';
 import Schemes from './pages/Schemes';
 import Apply from './pages/Apply';
@@ -12,9 +15,19 @@ import AddProject from './pages/AddProject';
 import './App.css';
 
 function App() {
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    // Show loader briefly on initial mount
+    const t = setTimeout(() => setLoading(false), 700);
+    return () => clearTimeout(t);
+  }, []);
+
   return (
     <Router>
-      <div className="App">
+      <ScrollToTop />
+      {loading && <Loader />}
+      <div className="App" style={{ opacity: loading ? 0.8 : 1 }}>
         <Navbar />
         <main className="main-content">
           <Routes>

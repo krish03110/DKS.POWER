@@ -31,11 +31,11 @@ const About = () => {
             </div>
             <div className="stats-grid">
               <div className="stat-item">
-                <div className="stat-number">100+</div>
+                <div className="stat-number">100kw</div>
                 <div className="stat-label">Projects Completed</div>
               </div>
               <div className="stat-item">
-                <div className="stat-number">1+</div>
+                <div className="stat-number">2+</div>
                 <div className="stat-label">Years Experience</div>
               </div>
               <div className="stat-item">
@@ -57,7 +57,7 @@ const About = () => {
             </div>
             <div className="service-card">
               <div className="service-icon">🏢</div>
-              <h3>Commercial & Factory Solar </h3>
+              <h3>Commercial & Industrial Solar </h3>
               <p>Scalable solutions for businesses designed for maximum ROI and long-term reliability.</p>
             </div>
             <div className="service-card">
