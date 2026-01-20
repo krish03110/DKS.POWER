@@ -1,6 +1,49 @@
   import { Link } from 'react-router-dom';
+  import { useState, useEffect } from 'react';
+  import { getProjects } from '../utils/api';
 
   const Hero = () => {
+    const [projectStats, setProjectStats] = useState({
+      totalCapacity: '0',
+      completedCount: 0,
+    });
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+      const fetchProjectStats = async () => {
+        try {
+          // Fetch only completed projects
+          const response = await getProjects();
+          const completedProjects = response.data.filter(
+            (project) => project.status === 'completed'
+          );
+
+          // Calculate total capacity
+          let totalCapacity = 0;
+          completedProjects.forEach((project) => {
+            if (project.capacity) {
+              const capacityValue = parseInt(project.capacity);
+              if (!isNaN(capacityValue)) {
+                totalCapacity += capacityValue;
+              }
+            }
+          });
+
+          setProjectStats({
+            totalCapacity: totalCapacity > 0 ? `${totalCapacity}kw` : '0kw',
+            completedCount: completedProjects.length,
+          });
+        } catch (error) {
+          console.error('Error fetching project stats:', error);
+          // Keep default values if fetch fails
+        } finally {
+          setLoading(false);
+        }
+      };
+
+      fetchProjectStats();
+    }, []);
+
     return (
       <section className="hero-section">
         <div className="container">
@@ -17,7 +60,7 @@
               </p>
               <div className="hero-stats">
                 <div className="stat">
-                  <span className="stat-number">100kw</span>
+                  <span className="stat-number">{loading ? '...' : projectStats.totalCapacity}</span>
                   <span className="stat-label">Projects Completed</span>
                 </div>
                 <div className="stat">

@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 const SchemeCard = ({ scheme }) => {
   return (
-    <div className="scheme-card" style={{ borderColor: scheme.color }}>
+    <div className="scheme-preview-card" style={{ borderColor: scheme.color }}>
       <div className="scheme-icon">{scheme.icon}</div>
       <h3 className="scheme-title">{scheme.title}</h3>
       <p className="scheme-subtitle">{scheme.subtitle}</p>

@@ -22,6 +22,7 @@ export const SCHEMES = [
     id: 2,
     title: "PM KUSUM Yojana",
     subtitle: "Solar Pumps for Farmers",
+    subsidy: '60% Subsidy + 30% Loan',
     desc: "Install solar pumps for agriculture with low upfront cost and protection from diesel prices.",
     icon: "🌾",
     color: "#FFC107",

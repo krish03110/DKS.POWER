@@ -133,7 +133,7 @@ const ProjectsGrid = ({ projects = [], loading = false, onProjectSelect }) => {
 
   return (
     <div className="projects-slideshow">
-      <div className="slideshow-container" style={{ display: 'grid', gridTemplateAreas: '"slide"', overflow: 'hidden', position: 'relative' }}>
+      <div className="slideshow-container" style={{ display: 'grid', gridTemplateAreas: '"slide"', overflow: 'hidden', position: 'relative', minHeight: '500px' }}>
         {projects.map((project, idx) => {
           const id = project._id || project.id || project.title;
           const imgs = (project.images || []).slice(0, 3);
@@ -146,6 +146,7 @@ const ProjectsGrid = ({ projects = [], loading = false, onProjectSelect }) => {
               style={{ 
                 gridArea: 'slide',
                 width: '100%',
+                height: '100%',
                 transform: `translateX(${(idx - currentSlide) * 100}%)`,
                 transition: isTransitioning ? 'transform 0.4s ease-in-out' : 'none'
               }}
@@ -193,19 +194,6 @@ const ProjectsGrid = ({ projects = [], loading = false, onProjectSelect }) => {
           />
         ))}
       </div>
-
-      <button
-        className="slide-prev"
-        onClick={() => goToSlide((currentSlide - 1 + projects.length) % projects.length)}
-      >
-        ‹
-      </button>
-      <button 
-        className="slide-next" 
-        onClick={() => goToSlide((currentSlide + 1) % projects.length)}
-      >
-        ›
-      </button>
     </div>
   );
 };

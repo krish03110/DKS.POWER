@@ -1,39 +1,35 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { SITE_CONFIG } from '../utils/constants';
 import { Link } from 'react-router-dom';
+import axios from 'axios';
+
+const API_BASE_URL = 'http://localhost:5000/api';
 
 const Schemes = () => {
-  const [activeTab, setActiveTab] = useState('pm-surya');
+  const [activeTab, setActiveTab] = useState('');
+  const [schemes, setSchemes] = useState([]);
+  const [loading, setLoading] = useState(true);
 
-  const schemes = [
-    {
-      id: 'pm-surya',
-      title: 'PM Surya Ghar Muft Bijli Yojana',
-      desc: 'Rooftop solar for homes - Get up to 300 units free electricity monthly',
-      subsidy: '₹78,000 for 3kW system',
-      target: 'Residential households',
-      
-    },
-    {
-      id: 'kusum',
-      title: 'PM KUSUM Yojana',
-      desc: 'Solar pumps & power plants for farmers',
-      subsidy: 'Up to 60% subsidy + 30% loan',
-      target: 'Farmers & agriculture',
-     
-    },
-    {
-      id: 'rooftop',
-      title: 'Grid-Connected Rooftop Solar (MNRE)',
-      desc: 'Central subsidy for homes & institutions',
-      subsidy: '40% up to 3kW, 20% for 3-10kW',
-      target: 'Residential & Institutional',
-    
-    }
-  ];
+  useEffect(() => {
+    const fetchSchemes = async () => {
+      try {
+        const { data } = await axios.get(`${API_BASE_URL}/schemes`);
+        console.log('Schemes fetched:', data);
+        setSchemes(data);
+        if (data.length > 0) {
+          setActiveTab(data[0]._id);
+        }
+      } catch (error) {
+        console.error('Failed to fetch schemes:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+    fetchSchemes();
+  }, []);
 
-  const getSubsidyTable = (schemeId) => {
-    if (schemeId === 'pm-surya') {
+  const getSubsidyTable = (title) => {
+    if (title && title.toLowerCase().includes('surya')) {
       return (
         <table className="subsidy-table">
           <thead>
@@ -43,7 +39,7 @@ const Schemes = () => {
             </tr>
           </thead>
           <tbody>
-            <tr><td>Up to 1 kW</td><td>₹30,000</td></tr>
+            <tr><td>for 1 kW</td><td>₹30,000</td></tr>
             <tr><td>2 kW</td><td>₹60,000</td></tr>
             <tr><td>3 kW & above</td><td>₹78,000 (Max)</td></tr>
           </tbody>
@@ -52,6 +48,10 @@ const Schemes = () => {
     }
     return null;
   };
+
+  if (loading) {
+    return <div className="container" style={{padding: '4rem', textAlign: 'center'}}>Loading schemes...</div>;
+  }
 
   return (
     <div className="schemes-page">
@@ -68,9 +68,9 @@ const Schemes = () => {
         <div className="schemes-tabs">
           {schemes.map(scheme => (
             <div 
-              key={scheme.id}
-              className={`tab-item ${activeTab === scheme.id ? 'active' : ''}`}
-              onClick={() => setActiveTab(scheme.id)}
+              key={scheme._id}
+              className={`tab-item ${activeTab === scheme._id ? 'active' : ''}`}
+              onClick={() => setActiveTab(scheme._id)}
             >
               {scheme.title}
             </div>
@@ -80,26 +80,38 @@ const Schemes = () => {
         {/* Active Scheme Details */}
         <div className="scheme-details">
           {schemes.map(scheme => (
-            <div key={scheme.id} className={`scheme-card ${activeTab === scheme.id ? 'active' : ''}`}>
+            <div key={scheme._id} className={`scheme-card ${activeTab === scheme._id ? 'active' : ''}`}>
               <div className="scheme-content">
                 <h2>{scheme.title}</h2>
-                <p className="scheme-desc">{scheme.desc}</p>
-                <div className="scheme-highlight">
-                  <div className="highlight-item">
-                    <span className="highlight-label">Subsidy:</span>
-                    <span className="highlight-value">{scheme.subsidy}</span>
+                <p className="scheme-desc">{scheme.description}</p>
+                
+                {(scheme.subsidy || scheme.target) && (
+                  <div className="scheme-highlight">
+                    {scheme.subsidy && (
+                      <div className="highlight-item">
+                        <span className="highlight-label">Subsidy:</span>
+                        <span className="highlight-value">{scheme.subsidy}</span>
+                      </div>
+                    )}
+                    {scheme.target && (
+                      <div className="highlight-item">
+                        <span className="highlight-label">Target:</span>
+                        <span className="highlight-value">{scheme.target}</span>
+                      </div>
+                    )}
                   </div>
-                  <div className="highlight-item">
-                    <span className="highlight-label">Target:</span>
-                    <span className="highlight-value">{scheme.target}</span>
-                  </div>
-                </div>
-                {getSubsidyTable(scheme.id)}
+                )}
+
+                {getSubsidyTable(scheme.title)}
                 <div className="scheme-actions">
                   <Link to="/apply" className="get-help-btn">
                     Get Help from DKS Power
                   </Link>
-                
+                  {scheme.link && (
+                     <a href={scheme.link} target="_blank" rel="noopener noreferrer" className="secondary-cta" style={{marginLeft: '1rem'}}>
+                       Official Website
+                     </a>
+                  )}
                 </div>
               </div>
             </div>

@@ -1,90 +1,54 @@
-import { useState } from 'react';
-import { SITE_CONFIG } from '../utils/constants'; // Adjust path as needed
+import { SITE_CONFIG } from '../utils/constants';
 
 const Contact = () => {
-  const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    phone: '',
-    subject: '',
-    message: ''
-  });
-
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
-  const handleWhatsAppRedirect = (e) => {
-    e.preventDefault();
-    
-    const whatsappNumber = '9893302902';
-  
-    const userPhone = formData.phone.replace(/[^0-9]/g, ''); // Clean phone
-    const text = `New Contact Inquiry%0A%0AName: ${encodeURIComponent(formData.fullName)}%0APhone: ${userPhone}%0AEmail: ${encodeURIComponent(formData.email)}%0ASubject: ${encodeURIComponent(formData.subject)}%0AMessage: ${encodeURIComponent(formData.message)}`;
-    
-    // Redirect to WhatsApp Web/Mobile
-    const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${text}`;
-    window.open(whatsappUrl, '_blank');
-  };
+  // Format phone number for WhatsApp (removes spaces/dashes)
+  const whatsappNumber = SITE_CONFIG.phone[0].replace(/\D/g, '');
+  const instagramUsername = "dkspower_solar"; // Replace with your actual username
 
   return (
     <div className="contact-page">
       <div className="container">
-        <form onSubmit={handleWhatsAppRedirect} className="contact-form">
-          <h2>Get in Touch</h2>
-          
-          <input
-            type="text"
-            name="fullName"
-            placeholder="Full Name"
-            value={formData.fullName}
-            onChange={handleChange}
-            required
-          />
-          
-          <input
-            type="email"
-            name="email"
-            placeholder="Email Address"
-            value={formData.email}
-            onChange={handleChange}
-            required
-          />
-          
-          <input
-            type="tel"
-            name="phone"
-            placeholder="Phone Number"
-            value={formData.phone}
-            onChange={handleChange}
-            required
-          />
-          
-          <input
-            type="text"
-            name="subject"
-            placeholder="Subject"
-            value={formData.subject}
-            onChange={handleChange}
-            required
-          />
-          
-          <textarea
-            name="message"
-            placeholder="Your Message"
-            rows="5"
-            value={formData.message}
-            onChange={handleChange}
-            required
-          />
-          
-          <button type="submit" className="whatsapp-btn">
-            Start WhatsApp Chat
-          </button>
-        </form>
+        <div className="contact-header">
+          <h1 className="page-title">Contact DKS Power</h1>
+          <p className="page-subtitle">
+            We help homeowners switch to clean and affordable solar energy with end-to-end residential rooftop solutions. From site survey and system design to installation and subsidy assistance, our experts ensure maximum savings and long-term performance.
+          </p>
+        </div>
+
+        <div className="contact-grid">
+          {/* WhatsApp Card */}
+          <a 
+            href={`https://wa.me/${9893636226}?text=Hi DKS Power, I am interested in a solar installation.`} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="contact-card whatsapp"
+          >
+            <div className="card-icon">💬</div>
+            <h2>WhatsApp Chat</h2>
+            <p>Get an instant quote with us on whatsapp.</p>
+            <span className="chat-btn">Message on WhatsApp</span>
+          </a>
+
+          {/* Instagram Card */}
+          <a 
+            href={`https://www.instagram.com/p/DSPBaNUCD69/${instagramUsername}`} 
+            target="_blank" 
+            rel="noopener noreferrer"
+            className="contact-card instagram"
+          >
+            <div className="card-icon">📸</div>
+            <h2>Instagram</h2>
+            <p>Follow our latest projects and DM us for consultations.</p>
+            <span className="chat-btn">Message on Instagram</span>
+          </a>
+        </div>
+
+        <div className="office-info">
+          <h3>Visit Our Office</h3>
+          <p>📍 {SITE_CONFIG.address}</p>
+          <p>📞 {SITE_CONFIG.phone[0]} | {SITE_CONFIG.phone[1]}</p>
+          <p>✉️ {SITE_CONFIG.email}</p>
+        </div>
       </div>
     </div>
   );

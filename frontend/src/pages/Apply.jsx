@@ -171,8 +171,8 @@ const Apply = () => {
                     value={formData.powerRequirement}
                     onChange={handleChange}
                     placeholder="e.g. 3kW, 5kW"
-                    step="0.1"
-                    min="0.1"
+                    step="1"
+                    min="1"
                     required
                     className="form-input"
                   />

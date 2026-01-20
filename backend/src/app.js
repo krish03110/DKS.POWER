@@ -7,6 +7,8 @@ const path = require('path');
 
 const projectRoutes = require('./routes/projects');
 const adminRoutes = require('./routes/admin');
+const sliderRoutes = require('./routes/slider');
+const schemeRoutes = require('./routes/schemes');
 
 const applicationRoutes = require('./routes/applications');
 const contactRoutes = require('./routes/contact');
@@ -28,6 +30,8 @@ app.use(morgan('dev'));
 
 // Routes
 app.use('/api/projects', projectRoutes);
+app.use('/api/slider-images', sliderRoutes);
+app.use('/api/schemes', schemeRoutes);
 app.use('/api/admin', adminRoutes);
 
 

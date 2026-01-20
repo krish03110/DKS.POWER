@@ -6,8 +6,8 @@ const Services = () => {
     {
       icon: '🏠',
       title: 'Residential Solar Installation',
-      desc: 'Complete rooftop solar systems for homes (1kW - 10kW). Reduce electricity bills by 80-100%. Government subsidy eligible.',
-      features: ['Site survey & design', 'Panel + inverter installation', 'Net metering setup', '25-year warranty']
+      desc: 'Complete rooftop solar systems for homes (3kW - 10kW). Reduce electricity bills by 80-100%. Government subsidy eligible.',
+      features: ['Site survey & design', 'Panel + inverter installation', 'Net metering setup', '5-year warranty']
     },
     {
       icon: '🏢',
@@ -17,14 +17,14 @@ const Services = () => {
     },
     {
       icon: '🔧',
-      title: 'Solar Panel Maintenance',
+      title: 'Solar Panel Maintenance & AMC',
       desc: 'Annual cleaning, performance checks & repairs. Keep your system at 98% efficiency. MNRE approved service.',
       features: ['Dust & dirt cleaning', 'Thermal imaging', 'Inverter servicing', 'AMC contracts']
     },
 
     {
       icon: '📋',
-      title: 'Subsidy & Documentation',
+      title: 'Subsidy & Documentation Work',
       desc: 'Complete government subsidy paperwork. PM Surya Ghar, KUSUM, MNRE applications handled.',
       features: ['Online portal filing', 'Vendor empanelment', 'Net metering NOC', '100% success rate']
     },

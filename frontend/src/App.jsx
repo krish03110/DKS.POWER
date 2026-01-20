@@ -1,4 +1,4 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import Navbar from './components/common/Navbar';
 import Footer from './components/common/Footer';
@@ -12,9 +12,13 @@ import Contact from './pages/Contact';
 import Services from './pages/Services';
 import Projects from './pages/Project';
 import AddProject from './pages/AddProject';
+import AdminDashboard from './admin/AdminDashboard';
+import './admin/AdminDashboard.css';
 import './App.css';
 
-function App() {
+const AppContent = () => {
+  const location = useLocation();
+  const isAdmin = location.pathname.startsWith('/admin');
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -24,12 +28,11 @@ function App() {
   }, []);
 
   return (
-    <Router>
-      <ScrollToTop />
+    <>
       {loading && <Loader />}
       <div className="App" style={{ opacity: loading ? 0.8 : 1 }}>
-        <Navbar />
-        <main className="main-content">
+        {!isAdmin && <Navbar />}
+        <main className={isAdmin ? '' : 'main-content'}>
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/schemes" element={<Schemes />} />
@@ -39,11 +42,21 @@ function App() {
             <Route path="/services" element={<Services />} />
             <Route path="/projects" element={<Projects />} />
             <Route path="/add-project" element={<AddProject />} />
+            <Route path="/admin/dashboard" element={<AdminDashboard />} />
             <Route path="*" element={<Home />} />
           </Routes>
         </main>
-        <Footer />
+        {!isAdmin && <Footer />}
       </div>
+    </>
+  );
+};
+
+function App() {
+  return (
+    <Router>
+      <ScrollToTop />
+      <AppContent />
     </Router>
   );
 }

@@ -25,13 +25,10 @@ const Home = () => {
     fetchProjects();
   }, []);
 
+  
   return (
-    <div className="home-wrapper">
-      <div className="content-overlay">
-        <Hero />
-
-        <OfficeSlider />
-
+    <>
+      
         <section className="projects-section">
           <div className="container">
             <h2 className="section-title">Projects Completed by Us</h2>
@@ -46,6 +43,12 @@ const Home = () => {
             )}
           </div>
         </section>
+    <div className="home-wrapper">
+      <div className="content-overlay">
+        <Hero />
+
+        <OfficeSlider />
+
 
         <SchemesSection schemes={SCHEMES} />
         <CTA />
@@ -60,6 +63,7 @@ const Home = () => {
         </section>
       </div>
     </div>
+    </>
   );
 };
 

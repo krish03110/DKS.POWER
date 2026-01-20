@@ -1,0 +1,229 @@
+/* ======================================
+   GLOBAL RESET & BASE
+====================================== */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background-color: #f4f6f8;
+  font-family: "Inter", "Roboto", Arial, sans-serif;
+  color: #0f172a;
+}
+
+/* ======================================
+   APP BAR
+====================================== */
+.MuiAppBar-root {
+  background-color: #1976d2 !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.MuiToolbar-root {
+  min-height: 64px;
+}
+
+.MuiAppBar-root .MuiTypography-root {
+  font-weight: 600;
+}
+
+/* ======================================
+   DRAWER / SIDEBAR
+====================================== */
+.MuiDrawer-paper {
+  background-color: #f8fafc !important;
+  border-right: 1px solid #e2e8f0;
+}
+
+.MuiListItem-root {
+  margin: 4px 8px;
+  border-radius: 10px;
+}
+
+.MuiListItem-root.Mui-selected {
+  background-color: #e3f2fd !important;
+  border-left: 4px solid #1976d2;
+}
+
+.MuiListItem-root:hover {
+  background-color: #edf2f7;
+}
+
+.MuiListItemIcon-root {
+  color: #1976d2;
+}
+
+/* ======================================
+   MAIN CONTENT AREA
+====================================== */
+main {
+  background-color: #f4f6f8;
+  min-height: 100vh;
+}
+
+@media (max-width: 768px) {
+  main {
+    padding: 16px !important;
+  }
+}
+
+/* ======================================
+   CARDS
+====================================== */
+.MuiCard-root {
+  border-radius: 14px !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08) !important;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.MuiCard-root:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.12) !important;
+}
+
+.MuiCardContent-root {
+  padding: 20px !important;
+}
+
+/* ======================================
+   TYPOGRAPHY
+====================================== */
+.MuiTypography-h5,
+.MuiTypography-h6 {
+  font-weight: 600 !important;
+  color: #0f172a;
+}
+
+.MuiTypography-body2 {
+  color: #475569;
+  line-height: 1.6;
+}
+
+/* ======================================
+   BUTTONS
+====================================== */
+.MuiButton-root {
+  text-transform: none !important;
+  font-weight: 600 !important;
+  border-radius: 10px !important;
+  padding: 8px 16px;
+}
+
+.MuiButton-containedPrimary {
+  background: linear-gradient(135deg, #1976d2, #0d47a1);
+}
+
+.MuiButton-containedPrimary:hover {
+  opacity: 0.95;
+}
+
+.MuiButton-outlined {
+  border-width: 2px;
+}
+
+/* Full-width buttons on mobile */
+@media (max-width: 480px) {
+  .MuiButton-root {
+    width: 100%;
+  }
+}
+
+/* ======================================
+   FORMS & INPUTS
+====================================== */
+.MuiTextField-root,
+.MuiFormControl-root {
+  margin-bottom: 8px;
+}
+
+.MuiOutlinedInput-root {
+  border-radius: 10px;
+  background-color: #ffffff;
+}
+
+.MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline {
+  border-color: #1976d2;
+}
+
+.MuiInputLabel-root {
+  font-weight: 500;
+}
+
+/* ======================================
+   SELECT DROPDOWN
+====================================== */
+.MuiSelect-select {
+  padding: 12px;
+}
+
+/* ======================================
+   ALERTS
+====================================== */
+.MuiAlert-root {
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* ======================================
+   DIALOGS
+====================================== */
+.MuiDialog-paper {
+  border-radius: 16px !important;
+  padding: 8px;
+}
+
+.MuiDialogTitle-root {
+  font-weight: 600;
+}
+
+.MuiDialogActions-root {
+  padding: 16px 24px;
+}
+
+/* ======================================
+   IMAGE PREVIEW (OFFICE SLIDER)
+====================================== */
+img {
+  max-width: 100%;
+  border-radius: 10px;
+}
+
+/* ======================================
+   LISTS (FEATURES)
+====================================== */
+ul {
+  padding-left: 18px;
+}
+
+li {
+  margin-bottom: 6px;
+  color: #334155;
+}
+
+/* ======================================
+   LOADING CENTER
+====================================== */
+.MuiCircularProgress-root {
+  color: #1976d2;
+}
+
+/* ======================================
+   RESPONSIVE FIXES
+====================================== */
+@media (max-width: 900px) {
+  .MuiGrid-item {
+    padding-top: 12px !important;
+  }
+}
+
+@media (max-width: 600px) {
+  .MuiCardContent-root {
+    padding: 16px !important;
+  }
+
+  .MuiTypography-h5 {
+    font-size: 1.1rem;
+  }
+}
+    
